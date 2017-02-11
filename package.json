@@ -1,0 +1,41 @@
+{
+  "name": "geofinca",
+  "version": "1.0.0",
+  "description": "Proyecto para administrar información de fincas y dueños a través de GPS",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/leojim06/MEA2N_Tutorial.git"
+  },
+  "keywords": [
+    "MEA2N",
+    "MongoDB",
+    "Express",
+    "Node",
+    "Angular",
+    "2"
+  ],
+  "author": "leojim06",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/leojim06/MEA2N_Tutorial/issues"
+  },
+  "homepage": "https://github.com/leojim06/MEA2N_Tutorial#readme",
+  "dependencies": {
+    "body-parser": "^1.16.0",
+    "express": "^4.14.1",
+    "morgan": "^1.8.0"
+  },
+  "devDependencies": {
+    "@types/body-parser": "0.0.33",
+    "@types/express": "^4.0.35",
+    "@types/morgan": "^1.7.32",
+    "@types/node": "^7.0.5",
+    "gulp": "^3.9.1",
+    "gulp-typescript": "^3.1.4",
+    "typescript": "^2.1.6"
+  }
+}
