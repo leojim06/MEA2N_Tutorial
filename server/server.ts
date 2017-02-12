@@ -1,6 +1,8 @@
-import { App } from './config/express';
 import { Config } from './config/config';
+import App from './config/express';
 
-const app = new App();
-
-app.startServer(Config.PORT);
+App.listen(Config.PORT, (err) => {
+    err ?
+        console.error(`Server error: ${err}`) :
+        console.log(`Server listening on port ${Config.PORT}`);
+})

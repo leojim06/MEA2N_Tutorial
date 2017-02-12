@@ -8,8 +8,8 @@ import * as logger from 'morgan'
  * @export Aplicación express
  * @class App
  */
-export class App {
-    private app: express.Application;
+class App {
+    public express: express.Application;
 
     /**
      * Crea una instancia de la aplicación express
@@ -18,7 +18,7 @@ export class App {
      * @memberOf App
      */
     constructor() {
-        this.app = express();
+        this.express = express();
         this.setMiddleware();
         this.setRoutes();
     }
@@ -30,20 +30,7 @@ export class App {
      * @memberOf App
      */
     private setRoutes(): void {
-        this.app.get('/', this.renderHelloWorld);
-    }
-
-    /**
-     * Inicializa el servidor de node con la aplicación express
-     * 
-     * @param {number} port Puerto en el que escuchará el servidor
-     * 
-     * @memberOf App
-     */
-    public startServer(port: number): void {
-        this.app.listen(port, () => {
-            console.log(`Server listening on port ${port}.`);
-        });
+        this.express.get('/', this.renderHelloWorld);
     }
 
     /**
@@ -56,7 +43,7 @@ export class App {
      * @memberOf App
      */
     private renderHelloWorld(req: express.Request, res: express.Response): void {
-        res.status(200).send('Hello World (^.^)');
+        res.status(200).send({ message: 'Hello World (^.^)' });
     }
 
     /**
@@ -69,8 +56,13 @@ export class App {
      * @memberOf App
      */
     private setMiddleware(): void {
-        this.app.use(logger('dev'));
-        this.app.use(bodyParser.json());
-        this.app.use(bodyParser.urlencoded({ extended: true }));
+        // Establece el logger solo si la variable de entorno es de desarrollo
+        if (this.express.get('env') === 'development') {
+            this.express.use(logger('dev'));
+        }
+        this.express.use(bodyParser.json());
+        this.express.use(bodyParser.urlencoded({ extended: true }));
     }
 }
+
+export default new App().express;
