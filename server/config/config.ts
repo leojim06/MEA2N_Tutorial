@@ -22,7 +22,17 @@ export class Config {
      * @memberOf Config
      */
     static DB: string = process.env.MONGOLAB_URI || "mongodb://localhost/gpsfinca";
+
     
+    /**
+     * Base de datos para pruebas
+     * 
+     * @static
+     * @type {string}
+     * @memberOf Config
+     */
+    static DB_TEST: string = process.env.MONGOLAB_URI || "mongodb://localhost/gpsfinca_test";
+
     /**
      * Cadena secreta para encriptacion
      * 
