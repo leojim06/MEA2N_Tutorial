@@ -2,6 +2,8 @@ import * as express from 'express'
 import * as bodyParser from 'body-parser'
 import * as logger from 'morgan'
 
+import { Routes } from '../app/routes';
+
 /**
  * Estableciendo la aplicación con express
  * 
@@ -31,6 +33,7 @@ class App {
      */
     private setRoutes(): void {
         this.express.get('/', this.renderHelloWorld);
+        this.express.use(new Routes().routes);
     }
 
     /**
