@@ -4,7 +4,7 @@ import { Propietario } from '../models/interfaces/propietario';
 import { Propietarios } from '../models/schemas/propietarioSchema';
 
 /**
- * Manipula la informaci[on del Propietario en la capa de business
+ * Manipula la información del Propietario en la capa de business
  * 
  * @export
  * @class PropietarioBusiness

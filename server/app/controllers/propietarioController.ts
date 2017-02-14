@@ -3,7 +3,24 @@ import { PropietarioBusiness } from '../business/propietarioBusiness';
 import { BaseController } from './interfaces/baseController';
 import { Propietario } from '../models/interfaces/propietario';
 
+/**
+ * Manipula la información del Propietario en la capa de controller
+ * Es el contacto directo con el cliente y recibe información de este
+ * También muestra los mensajes pertinentes al cliente.
+ * 
+ * @export
+ * @class PropietarioController
+ * @implements {BaseController<Propietario>}
+ */
 export class PropietarioController implements BaseController<Propietario> {
+   /**
+    * Obtiene todos los registros de Propietario o muestra el error pertinente
+    * 
+    * @param {Request} req
+    * @param {Response} res
+    * 
+    * @memberOf PropietarioController
+    */
    getAll(req: Request, res: Response): void {
       try {
          let propietarioBusiness = new PropietarioBusiness();
@@ -19,6 +36,14 @@ export class PropietarioController implements BaseController<Propietario> {
       }
    }
 
+   /**
+    * Crea un registro de Propietario o muestra el error pertinente
+    * 
+    * @param {Request} req
+    * @param {Response} res
+    * 
+    * @memberOf PropietarioController
+    */
    create(req: Request, res: Response): void {
       try {
          let propietario: Propietario = <Propietario>req.body;
@@ -33,6 +58,14 @@ export class PropietarioController implements BaseController<Propietario> {
       }
    }
 
+   /**
+    * Obtiene un registro de propietario por id o muestra el error pertinente
+    * 
+    * @param {Request} req
+    * @param {Response} res
+    * 
+    * @memberOf PropietarioController
+    */
    findById(req: Request, res: Response): void {
       try {
          let _id: string = req.params._id;
@@ -49,6 +82,14 @@ export class PropietarioController implements BaseController<Propietario> {
       }
    }
 
+   /**
+    * Actualiza un registro de propietario por id o muestra el error pertinente
+    * 
+    * @param {Request} req
+    * @param {Response} res
+    * 
+    * @memberOf PropietarioController
+    */
    update(req: Request, res: Response): void {
       try {
          let _id: string = req.params._id;
@@ -66,6 +107,14 @@ export class PropietarioController implements BaseController<Propietario> {
       }
    }
 
+   /**
+    * Elimina un registro de propietario por id o muestra el error pertinente
+    * 
+    * @param {Request} req
+    * @param {Response} res
+    * 
+    * @memberOf PropietarioController
+    */
    delete(req: Request, res: Response): void {
       try {
          let _id: string = req.params._id;
