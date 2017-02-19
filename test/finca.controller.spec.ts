@@ -5,8 +5,8 @@ import * as chai from 'chai';
 import chaiHttp = require('chai-http');
 
 import app from '../server/config/express';
-import { Fincas } from '../server/app/models/schemas/fincaSchema';
-import { Finca } from '../server/app/models/interfaces/finca';
+import { Fincas, Propietarios } from '../server/app/models/schemas';
+import { Finca } from '../server/app/models/interfaces';
 
 chai.use(chaiHttp);
 const expect = chai.expect;
@@ -37,6 +37,7 @@ describe('FINCAS', () => {
       done();
    });
 
+   // /api/v1/fincas - GET
    describe('/ GET fincas', () => {
       it('Debe listar todas las fincas', (done) => {
          chai.request(app).get(fincasURL).end((err, res) => {
@@ -47,7 +48,6 @@ describe('FINCAS', () => {
             expect(res.body.RESULT).to.be.an('array');
             expect(res.body.RESULT[0].name).to.equal('La Maria');
             expect(res.body.RESULT[0].area).to.equal(500);
-            // expect(res.body.RESULT[0].location).to.equal();
             done();
          });
       });
@@ -64,56 +64,13 @@ describe('FINCAS', () => {
       });
    });
 
-   describe('/POST fincas', () => {
-      it('Debe agregar una finca', (done) => {
-         chai.request(app).post(fincasURL).send({
-            name: 'El Paraiso',
-            area: 250,
-            location: [1.587418, -77.985573]
-         }).end((err, res) => {
-            expect(err).to.be.null;
-            expect(res).to.have.status(201);
-            expect(res).to.be.json;
-            expect(res.body).to.have.property('CREATED');
-            expect(res.body.CREATED).to.be.an('object');
-            expect(res.body.CREATED).to.have.property('_id');
-            expect(res.body.CREATED).to.have.property('__v');
-            expect(res.body.CREATED.name).to.equal('El Paraiso');
-            expect(res.body.CREATED.area).to.equal(250);
-            done();
-         });
-      });
-      it('Debe agregar una finca - base de datos vacia', (done) => {
-         Fincas.collection.drop();
-         chai.request(app).post(fincasURL).send(fincaTest).end((err, res) => {
-            expect(err).to.be.null;
-            expect(res).to.have.status(201);
-            expect(res).to.be.json;
-            expect(res.body).to.have.property('CREATED');
-            expect(res.body.CREATED).to.be.an('object');
-            expect(res.body.CREATED).to.have.property('_id');
-            expect(res.body.CREATED).to.have.property('__v');
-            expect(res.body.CREATED.name).to.equal('La Maria');
-            expect(res.body.CREATED.area).to.equal(500);
-            done();
-         });
-      });
-      it('No debe agregar finca - faltan campos', (done) => {
-         chai.request(app).post(fincasURL).send({
-            name: 'El Paraiso'
-         }).end((err, res) => {
-            expect(res).to.have.status(400);
-            expect(res).to.be.json;
-            expect(res.body).to.have.property('ERROR');
-            expect(res.body).to.have.property('MSG');
-            expect(res.body.ERROR).to.be.a('string');
-            expect(res.body.ERROR).to.equal('Error en su solicitud');
-            done();
-         });
-      });
-   });
+   // /api/v1/fincas - POST
+   // No tiene end point pero se utiliza al crear la finca en la ruta
+   // /api/v1/propietarios/:_id/fincas - POST
+   // @deprecated
 
 
+   // /api/v1/fincas/:_id - GET
    describe('/GET/:_id finca', () => {
       it('Debe listar finca con id', (done) => {
          chai.request(app).get(fincasURL).end((error, response) => {
@@ -163,6 +120,7 @@ describe('FINCAS', () => {
       });
    });
 
+   // /api/v1/fincas/:_id - PUT
    describe('/PUT/:_id fincas', () => {
       it('Debe actualizar finca con id', (done) => {
          chai.request(app).get(fincasURL).end((error, response) => {
@@ -228,6 +186,7 @@ describe('FINCAS', () => {
       });
    });
 
+   // /api/v1/fincas/:_id - DELETE
    describe('/DELETE/:_id fincas', () => {
       it('Debe borrar finca con id', (done) => {
          chai.request(app).get(fincasURL).end((error, response) => {
