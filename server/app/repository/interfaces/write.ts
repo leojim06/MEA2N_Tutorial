@@ -1,4 +1,3 @@
-import * as mongoose from 'mongoose';
 /**
  * Interface para manipular información que se escribe en el repositorio
  * 
@@ -23,7 +22,7 @@ export interface WriteRepository<T> {
      * 
      * @memberOf WriteRepository
      */
-    update: (_id: mongoose.Types.ObjectId, item: T, callback: (error: any, result: any) => void) => void;
+    update: (item: T, data: T, callback: (error: any, result: any) => void) => void;
     /**
      * Elimina un elemento recuperado del repositorio mediante el id de tipo @type
      * @see mongoose.Types.ObjectId y retorna la información con ayuda de un
@@ -32,5 +31,5 @@ export interface WriteRepository<T> {
      * 
      * @memberOf WriteRepository
      */
-    delete: (_id: mongoose.Types.ObjectId, callback: (error: any, result: any) => void) => void;
+    delete: (item: T, callback: (error: any, result: any) => void) => void;
 }

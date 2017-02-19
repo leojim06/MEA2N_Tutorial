@@ -5,15 +5,15 @@ import * as chai from 'chai';
 import chaiHttp = require('chai-http');
 
 import app from '../server/config/express';
-import { Propietarios } from '../server/app/models/schemas/propietarioSchema';
-import { Propietario } from '../server/app/models/interfaces/propietario';
+import { Propietarios } from '../server/app/models/schemas';
+import { Propietario } from '../server/app/models/interfaces';
 
 chai.use(chaiHttp);
 const expect = chai.expect;
 const propietariosURL = `/api/v1/propietarios`;
 
 const propietarioTest: Propietario = <Propietario>{
-   fName: 'Joe',
+   fName: 'John',
    lName: 'Doe',
    gender: 'M',
    age: 33,
@@ -32,6 +32,7 @@ describe('PROPIETARIOS', () => {
       done();
    });
 
+   // /api/v1/propietarios - GET
    describe('/GET propietarios', () => {
       it('Debe listar todos los propietarios', (done) => {
          chai.request(app).get(propietariosURL).end((err, res) => {
@@ -40,7 +41,7 @@ describe('PROPIETARIOS', () => {
             expect(res).to.be.json;
             expect(res.body).to.have.property('RESULT');
             expect(res.body.RESULT).to.be.an('array');
-            expect(res.body.RESULT[0].fName).to.equal('Joe');
+            expect(res.body.RESULT[0].fName).to.equal('John');
             expect(res.body.RESULT[0].lName).to.equal('Doe');
             expect(res.body.RESULT[0].gender).to.equal('M');
             expect(res.body.RESULT[0].age).to.equal(33);
@@ -61,6 +62,7 @@ describe('PROPIETARIOS', () => {
       });
    });
 
+   // /api/v1/propietarios - POST
    describe('/POST propietarios', () => {
       it('Debe agregar un propietario', (done) => {
          chai.request(app).post(propietariosURL).send({
@@ -99,7 +101,7 @@ describe('PROPIETARIOS', () => {
             expect(res.body.CREATED).to.have.property('__v');
             expect(res.body.CREATED).to.have.property('createdAt');
             expect(res.body.CREATED).to.have.property('updatedAt');
-            expect(res.body.CREATED.fName).to.equal('Joe');
+            expect(res.body.CREATED.fName).to.equal('John');
             expect(res.body.CREATED.lName).to.equal('Doe');
             expect(res.body.CREATED.gender).to.equal('M');
             expect(res.body.CREATED.age).to.equal(33);
@@ -123,7 +125,7 @@ describe('PROPIETARIOS', () => {
       });
    });
 
-
+   // /api/v1/propietarios/:_id - GET
    describe('/GET/:_id propietario', () => {
       it('Debe listar un propietario con id', (done) => {
          chai.request(app).get(propietariosURL).end((error, response) => {
@@ -138,7 +140,7 @@ describe('PROPIETARIOS', () => {
                   expect(res.body.RESULT).to.have.property('__v');
                   expect(res.body.RESULT).to.have.property('createdAt');
                   expect(res.body.RESULT).to.have.property('updatedAt');
-                  expect(res.body.RESULT.fName).to.equal('Joe');
+                  expect(res.body.RESULT.fName).to.equal('John');
                   expect(res.body.RESULT.lName).to.equal('Doe');
                   expect(res.body.RESULT.gender).to.equal('M');
                   expect(res.body.RESULT.age).to.equal(33);
@@ -178,6 +180,7 @@ describe('PROPIETARIOS', () => {
       });
    });
 
+   // /api/v1/propietarios/:_id - PUT :: solo actualiza información del propietario
    describe('/PUT/:_id propietarios', () => {
       it('Debe actualizar un propietario con id', (done) => {
          chai.request(app).get(propietariosURL).end((error, response) => {
@@ -244,6 +247,7 @@ describe('PROPIETARIOS', () => {
       });
    });
 
+   // /api/v1/propietarios/:_id - DELETE
    describe('/DELETE/:_id propietarios', () => {
       it('Debe borrar un propietario con id', (done) => {
          chai.request(app).get(propietariosURL).end((error, response) => {
