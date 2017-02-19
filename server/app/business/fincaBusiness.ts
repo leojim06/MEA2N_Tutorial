@@ -1,13 +1,13 @@
-import { FincaRepository } from '../repository/fincaRepository';
+import { FincaRepository } from '../repository';
 import { BaseBusiness } from './interfaces/baseBusines';
-import { Finca } from '../models/interfaces/finca';
-import { Fincas } from '../models/schemas/fincaSchema';
+import { Finca } from '../models/interfaces';
+import { Fincas } from '../models/schemas';
 
 export class FincaBusiness implements BaseBusiness<Finca> {
    private fincaRepository: FincaRepository;
 
    constructor() {
-      this.fincaRepository = new FincaRepository(Fincas);
+      this.fincaRepository = new FincaRepository();
    }
 
    create(item: Finca, callback: (error: any, result: any) => void) {
@@ -16,20 +16,20 @@ export class FincaBusiness implements BaseBusiness<Finca> {
    getAll(callback: (error: any, result: any) => void) {
       this.fincaRepository.getAll(callback);
    }
-   update(_id: string, item: Finca, callback: (error: any, result: any) => void) {
-      this.fincaRepository.findById(_id, (err, res) => {
+   update(_id: string, data: Finca, callback: (error: any, result: any) => void) {
+      this.fincaRepository.findById(_id, (err: any, res: Finca) => {
          if (err || !res) {
             return callback(err, res);
          }
-         this.fincaRepository.update(res._id, item, callback);
+         this.fincaRepository.update(res, data, callback);
       });
    }
    delete(_id: string, callback: (error: any, result: any) => void) {
-      this.fincaRepository.findById(_id, (err, res) => {
+      this.fincaRepository.findById(_id, (err: any, res: Finca) => {
          if (err || !res) {
             return callback(err, res);
          }
-         this.fincaRepository.delete(res._id, callback);
+         this.fincaRepository.delete(res, callback);
       });
    }
    findById(_id: string, callback: (error: any, result: Finca) => void) {

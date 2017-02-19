@@ -1,6 +1,7 @@
-import { Model, Document, Types } from 'mongoose';
+import { Model, Document, Types, Schema } from 'mongoose';
 import { BaseRepository } from './interfaces/baseRepository';
-import { Propietario } from '../models/interfaces/propietario';
+import { Propietario, Finca } from '../models/interfaces';
+import { Propietarios } from '../models/schemas';
 
 /**
  * Manipula la información del Propietario directamente con la base de datos
@@ -19,8 +20,8 @@ export class PropietarioRepository implements BaseRepository<Propietario> {
     * 
     * @memberOf PropietarioRepository
     */
-   constructor(schemaModel: Model<Document>) {
-      this.model = schemaModel;
+   constructor() {
+      this.model = Propietarios;
    }
 
    /**
@@ -53,19 +54,19 @@ export class PropietarioRepository implements BaseRepository<Propietario> {
     * 
     * @memberOf PropietarioRepository
     */
-   update(_id: Types.ObjectId, item: Propietario, callback: (error: any, result: any) => void) {
-      this.model.update({ _id: _id }, item, callback);
+   update(item: Propietario, data: Propietario, callback: (error: any, result: any) => void) {
+      item.update(data, callback);
    }
    /**
-    * Elimina un propietario por _id
+    * Elimina un propietario por _id y sus fincas relacionadas.
     * 
     * @param {Types.ObjectId} _id
     * @param {(error: any, result: any) => void} callback
     * 
     * @memberOf PropietarioRepository
     */
-   delete(_id: Types.ObjectId, callback: (error: any, result: any) => void) {
-      this.model.remove({ _id: _id }, (err) => callback(err, { _id: _id }));
+   delete(item: Propietario, callback: (error: any, result: any) => void) {
+      item.remove((err) => callback(err, { _id: item._id }));
    }
    /**
     * Encuentra un propietario por _id
@@ -78,4 +79,40 @@ export class PropietarioRepository implements BaseRepository<Propietario> {
    findById(_id: string, callback: (error: any, result: Propietario) => void) {
       this.model.findById(_id, callback);
    }
+
+
+   // Recibe el id del propietario, el id de la finca y registra la finca dentro del 
+   // arreglo de fincas del propietario.
+   // $addToSet ingresa el elemento en el arreglo solo si el elemento no existe
+   // $push ingresa el elemento en el arreglo aunque ya exista en este
+   // $pull saca el elemento del arreglo, si existen varios elementos iguales los elimina a todos
+
+   /**
+    * Inserta la finca enviada en el arreglo de fincas del propietario enviado
+    * 
+    * @param {Propietario} propietario
+    * @param {Finca} finca
+    * @param {(error: any, result: any) => void} callback
+    * 
+    * @memberOf PropietarioRepository
+    */
+   insertLand(propietario: Propietario, finca: Finca, callback: (error: any, result: any) => void) {
+      propietario.update({
+         $addToSet: { fincas: finca._id }
+      }, (err) => callback(err, { propietario: propietario, finca: finca }));
+   }
+
+
+   /**
+    * Recupera la información de las fincas del propietario y las adjunta en el documento propietario
+    * @see mongoose.populate
+    *
+    * @param {Propietario} item
+    * @param {(error: any, result: any) => void} callback
+    * 
+    * @memberOf PropietarioRepository
+    */
+   getLand(item: Propietario, callback: (error: any, result: any) => void) {
+      item.populate('fincas', callback);
+   };
 }

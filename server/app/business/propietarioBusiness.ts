@@ -1,7 +1,7 @@
-import { PropietarioRepository } from '../repository/propietarioRepository';
+import * as async from 'async';
+import { PropietarioRepository, FincaRepository } from '../repository';
 import { BaseBusiness } from './interfaces/baseBusines';
-import { Propietario } from '../models/interfaces/propietario';
-import { Propietarios } from '../models/schemas/propietarioSchema';
+import { Propietario, Finca } from '../models/interfaces';
 
 /**
  * Manipula la información del Propietario en la capa de business
@@ -20,7 +20,7 @@ export class PropietarioBusiness implements BaseBusiness<Propietario> {
     * @memberOf PropietarioBusiness
     */
    constructor() {
-      this.propietarioRepository = new PropietarioRepository(Propietarios);
+      this.propietarioRepository = new PropietarioRepository();
    }
 
    /**
@@ -50,17 +50,17 @@ export class PropietarioBusiness implements BaseBusiness<Propietario> {
     * findById de @see PropietarioBusiness
     * 
     * @param {string} _id
-    * @param {Propietario} item
+    * @param {Propietario} data
     * @param {(error: any, result: any) => void} callback
     * 
     * @memberOf PropietarioBusiness
     */
-   update(_id: string, item: Propietario, callback: (error: any, result: any) => void) {
-      this.propietarioRepository.findById(_id, (err, res) => {
+   update(_id: string, data: Propietario, callback: (error: any, result: any) => void) {
+      this.propietarioRepository.findById(_id, (err: any, res: Propietario) => {
          if (err || !res) {
             return callback(err, res);
          }
-         this.propietarioRepository.update(res._id, item, callback);
+         this.propietarioRepository.update(res, data, callback);
       });
    }
    /**
@@ -74,11 +74,11 @@ export class PropietarioBusiness implements BaseBusiness<Propietario> {
     * @memberOf PropietarioBusiness
     */
    delete(_id: string, callback: (error: any, result: any) => void) {
-      this.propietarioRepository.findById(_id, (err, res) => {
+      this.propietarioRepository.findById(_id, (err: any, res: Propietario) => {
          if (err || !res) {
             return callback(err, res);
          }
-         this.propietarioRepository.delete(res._id, callback);
+         this.propietarioRepository.delete(res, callback);
       });
    }
    /**
@@ -92,4 +92,85 @@ export class PropietarioBusiness implements BaseBusiness<Propietario> {
    findById(_id: string, callback: (error: any, result: Propietario) => void) {
       this.propietarioRepository.findById(_id, callback);
    }
+   /**
+    * Inserta una finca a un propietario según id del propietario
+    * Con el id busca el propietario, si el propietario existe,
+    * crea la finca, si la finca es creada, inserta la finca
+    * en el arreglo de fincas del propietario.
+    * Si algo sale mal, elimina la finca recién creada
+    * 
+    * @param {string} _id
+    * @param {Finca} finca
+    * @param {(error: any, result: any) => void} callback
+    * 
+    * @memberOf PropietarioBusiness
+    */
+   insertLand(_id: string, finca: Finca, callback: (error: any, result: any) => void) {
+      // // utilizando la libreria async
+      // async.waterfall([
+      //    (cb) => {
+      //       this.propietarioRepository.findById(_id, (err: any, propietario: Propietario) => {
+      //          if (err || !propietario) {
+      //             return callback(err, propietario);
+      //          }
+      //          cb(err, propietario);
+      //       });
+      //    },
+      //    (propietario, cb) => {
+      //       let fincaRepository = new FincaRepository();
+      //       fincaRepository.create(finca, (err: any, finca: Finca) => {
+      //          if (err || !finca) {
+      //             return callback(err, finca);
+      //          }
+      //          cb(err, propietario, finca);
+      //       });
+      //    },
+      //    (propietario, finca, cb) => {
+      //       this.propietarioRepository.insertLand(propietario, finca, (err: any, res: any) => {
+      //          if (err || !res) {
+      //             let fincaRepository = new FincaRepository();
+      //             fincaRepository.delete(finca, callback);
+      //          }
+      //          cb(err, res);
+      //       });
+      //    }
+      // ], (error, result) => {
+      //    return callback(error, result);
+      // });
+
+      //Utilizando llamados anidados a los repository
+      this.propietarioRepository.findById(_id, (err: any, propietario: Propietario) => {
+         if (err || !propietario) {
+            return callback(err, propietario);
+         }
+         let fincaRepository = new FincaRepository();
+         fincaRepository.create(finca, (err: any, finca: Finca) => {
+            if (err || !finca) {
+               return callback(err, finca);
+            }
+            this.propietarioRepository.insertLand(propietario, finca, (err: any, res: any) => {
+               if (err || !res) {
+                  fincaRepository.delete(finca, callback);
+               }
+               return callback(err, res);
+            });
+         });
+      });
+   }
+   /**
+    * Recupera la información de las fincas de un propietario dado.
+    * 
+    * @param {string} _id
+    * @param {(error: any, result: any) => void} callback
+    * 
+    * @memberOf PropietarioBusiness
+    */
+   getLand(_id: string, callback: (error: any, result: any) => void) {
+      this.propietarioRepository.findById(_id, (err: any, res: Propietario) => {
+         if (err || !res) {
+            return callback(err, res);
+         }
+         this.propietarioRepository.getLand(res, callback);
+      });
+   };
 }

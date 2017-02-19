@@ -1,9 +1,9 @@
 import { Request, Response } from 'express';
-import { FincaBusiness } from '../business/fincaBusiness';
+import { FincaBusiness } from '../business';
 import { BaseController } from './interfaces/baseController';
-import { Finca } from '../models/interfaces/finca';
+import { Finca } from '../models/interfaces';
 
-export class FincaController implements BaseController<Finca> {
+export class FincaController {
    getAll(req: Request, res: Response): void {
       try {
          let fincaBusiness = new FincaBusiness();
@@ -18,21 +18,6 @@ export class FincaController implements BaseController<Finca> {
          res.status(500).send({ 'SERVER_ERROR': error });
       }
    }
-
-   create(req: Request, res: Response): void {
-      try {
-         let finca: Finca = <Finca>req.body;
-         let fincaBusiness = new FincaBusiness();
-         fincaBusiness.create(finca, (error, result) => {
-            error ?
-               res.status(400).send({ 'ERROR': 'Error en su solicitud', 'MSG': error }) :
-               res.status(201).send({ 'CREATED': result });
-         });
-      } catch (error) {
-         res.status(500).send({ 'SERVER_ERROR': error });
-      }
-   }
-
    findById(req: Request, res: Response): void {
       try {
          let _id: string = req.params._id;
@@ -48,24 +33,22 @@ export class FincaController implements BaseController<Finca> {
          res.status(500).send({ 'SERVER_ERROR': error });
       }
    }
-
    update(req: Request, res: Response): void {
       try {
          let _id: string = req.params._id;
-         let finca: Finca = <Finca>req.body;
+         let dataUpdate: Finca = <Finca>req.body;
          let fincaBusiness = new FincaBusiness();
-         fincaBusiness.update(_id, finca, (error, result) => {
+         fincaBusiness.update(_id, dataUpdate, (error, result) => {
             error || (result && result.nModified === 0) ?
                res.status(400).send({ 'ERROR': 'Error en su solicitud', 'MSG': error }) :
                !result ?
                   res.status(404).send({ 'ERROR': 'Finca no encontrada - no se puede actualizar' }) :
-                  res.status(200).send({ 'UPDATED': finca });
+                  res.status(200).send({ 'UPDATED': dataUpdate });
          });
       } catch (error) {
          res.status(500).send({ 'SERVER_ERROR': error });
       }
    }
-
    delete(req: Request, res: Response): void {
       try {
          let _id: string = req.params._id;

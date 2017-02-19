@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import { PropietarioController } from '../controllers/propietarioController';
+import { PropietarioController } from '../controllers';
 
 const router = Router();
 
@@ -12,11 +12,11 @@ export class PropietarioRoutes {
 
    public get routes(): Router {
       let controller = this.propietarioController;
-      router.get('/', controller.getAll);
-      router.post('/', controller.create);
-      router.get('/:_id', controller.findById);
-      router.put('/:_id', controller.update);
-      router.delete('/:_id', controller.delete);
+      router.get('/', controller.getAll);         // Obtiene todos los propietarios - no obtiene fincas
+      router.post('/', controller.create);        // Crea un propietario nuevo
+      router.get('/:_id', controller.findById);   // Obtiene un propietario por _id - no obtiene fincas
+      router.put('/:_id', controller.update);     // Actualiza la información de un propietario por _id
+      router.delete('/:_id', controller.delete);  // Elimina un propietario ( ** y sus propiedades - eliminación en cascada)
       return router;
    }
 }

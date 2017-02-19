@@ -1,4 +1,4 @@
-import { Document, Model } from 'mongoose';
+import { Document, Model, Types } from 'mongoose';
 
 export interface Propietario extends Document {
     fName: string;
@@ -6,6 +6,7 @@ export interface Propietario extends Document {
     gender: string;
     age: number;
     email: string;
+    fincas: Types.ObjectId[];
 }
 
 export interface PropietarioModel extends Model<Propietario> { }
