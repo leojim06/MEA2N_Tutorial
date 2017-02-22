@@ -1,6 +1,6 @@
-import * as express from 'express'
-import * as bodyParser from 'body-parser'
-import * as logger from 'morgan'
+import * as express from 'express';
+import * as bodyParser from 'body-parser';
+import * as logger from 'morgan';
 
 import { Routes } from '../app/routes';
 
@@ -65,6 +65,12 @@ class App {
         }
         this.express.use(bodyParser.json());
         this.express.use(bodyParser.urlencoded({ extended: true }));
+        this.express.use((req: express.Request, res: express.Response, next: express.NextFunction) => {
+            res.header('Access-Control-Allow-Origin', '*');
+            res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,PATCH,OPTIONS');
+            res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization, Content-Length, X-Requested-With');
+            next();
+        });
     }
 }
 
