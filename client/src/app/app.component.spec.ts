@@ -10,9 +10,9 @@ import { Directive } from '@angular/core';
 class MockAppWelcome { }
 
 @Directive({
-   selector: 'app-confesion'
+   selector: 'app-darth-vader'
 })
-class MockAppConfesion { }
+class MockAppDarthVader { }
 
 describe('AppComponent', () => {
    beforeEach(() => {
@@ -20,7 +20,7 @@ describe('AppComponent', () => {
          declarations: [
             AppComponent,
             MockAppWelcome,
-            MockAppConfesion
+            MockAppDarthVader
          ]
       });
       TestBed.compileComponents();
@@ -45,16 +45,16 @@ describe('AppComponent', () => {
       expect(compiled.querySelector('h1').textContent).toContain('app works!');
    }));
 
-   // it('Debe tener un tag <app-confesion>', async(() => {
-   //    const fixture = TestBed.createComponent(AppComponent);
-   //    const mockAppConfesionEl = fixture.debugElement.query(By.directive(MockAppConfesion));
-   //    expect(mockAppConfesionEl).toBeTruthy();
-   // }));
+   it('Debe tener un tag <app-darth-vader>', async(() => {
+      const fixture = TestBed.createComponent(AppComponent);
+      const mockAppConfesionEl = fixture.debugElement.query(By.directive(MockAppDarthVader));
+      expect(mockAppConfesionEl).toBeTruthy();
+   }));
 
-   // it('Debe tener un tag <app-welcome>', async(() => {
-   //    const fixture = TestBed.createComponent(AppComponent);
-   //    const mockAppWelcomeEl = fixture.debugElement.query(By.directive(MockAppWelcome));
-   //    expect(mockAppWelcomeEl).toBeTruthy();
-   // }));
+   it('Debe tener un tag <app-welcome>', async(() => {
+      const fixture = TestBed.createComponent(AppComponent);
+      const mockAppWelcomeEl = fixture.debugElement.query(By.directive(MockAppWelcome));
+      expect(mockAppWelcomeEl).toBeTruthy();
+   }));
 
 });

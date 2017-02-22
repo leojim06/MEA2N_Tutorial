@@ -6,6 +6,7 @@ import { HttpModule } from '@angular/http';
 import { AppComponent } from './app.component';
 import { SharedModule } from './shared';
 import { WelcomeModule } from './welcome';
+import { ConfesionModule } from './confesion';
 
 @NgModule({
   declarations: [
@@ -17,6 +18,7 @@ import { WelcomeModule } from './welcome';
     HttpModule,
     SharedModule,
     WelcomeModule,
+    ConfesionModule
   ],
   providers: [],
   bootstrap: [AppComponent]

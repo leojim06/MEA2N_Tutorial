@@ -1,0 +1,33 @@
+<h3>Dart Vader vs Luke Skywalker</h3>
+
+<p>
+  <strong class="label label-info">{{ father }} :</strong>
+  <span>Obi Wan never told you what happened to your father.</span>
+</p>
+
+<p>
+  <strong class="label label-success">{{ son }} :</strong>
+  <span>He told me enough!  He told me you killed him!</span>
+</p>
+
+<p>
+  <strong class="label label-info">{{ father }} :</strong>
+  <span>
+   <app-luke-skywalker  [myConfesion]="myConfesion" (lukeAnswer)="onAnswer($event)" ></app-luke-skywalker>
+   </span>
+</p>
+
+<p>
+  <strong class="label label-success">{{ son }} :</strong>
+  <span>{{lukeAnswer}}</span>
+</p>
+
+<p>
+  <strong class="label label-info">{{ father }} :</strong>
+  <span>Search your feelings; you know it to be true!</span>
+</p>
+
+<p>
+  <strong class="label label-success">{{ son }} :</strong>
+  <span>NOOOOOOOOOOOOoooooooo</span>
+</p>
