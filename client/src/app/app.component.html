@@ -1,7 +1,81 @@
-<h1>
-  {{title}}
-</h1>
+<div class="page-wrapper">
 
-<app-welcome></app-welcome>
+  <!-- Nav bar-->
+  <nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container">
+      <!-- Nav bar mobile-->
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false"
+          aria-controls="navbar">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          </button>
+        <a class="navbar-brand" routerLink="/home" routerLinkActive="active"> GPS Finca</a>
+      </div>
+      <!-- Nav bar full size-->
+      <div id="navbar" class="navbar-collapse collapse">
+        <ul class="nav navbar-nav">
+          <li><a routerLink="/home" routerLinkActive="active">Inicio</a></li>
+          <li><a routerLink="/propietarios" routerLinkActive="active">Propietarios</a></li>
+          <li><a routerLink="/fincas" routerLinkActive="active">Fincas</a></li>
+          <li><a routerLink="/confesion" routerLinkActive="active">Confesión</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
 
-<app-darth-vader></app-darth-vader>
+  <div class="container">
+    <div class="row inbox">
+      <!-- Side bar-->
+      <div class="col-md-3">
+        <div class="panel panel-default">
+          <div class="panel-body inbox-menu">
+            <a routerLink="/home" routerLinkActive="active" class="btn btn-danger btn-block">GPS Finca</a>
+            <ul>
+              <li>
+                <a routerLink="/propietarios" routerLinkActive="active">
+                  <i class="fa fa-inbox"></i> Propietarios <span class="label label-danger">2</span>
+                </a>
+              </li>
+              <li>
+                <a routerLink="/fincas" routerLinkActive="active">
+                  <i class="fa fa-bookmark"></i> Fincas <span class="label label-info">3</span>
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- Main Content-->
+      <div class="col-md-9">
+        <div class="panel panel-default">
+          <div class="panel-body">
+            <ng2-slim-loading-bar [height]="'6px'"></ng2-slim-loading-bar>
+            <router-outlet></router-outlet>
+            <simple-notifications [options]="options"></simple-notifications>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Footer-->
+
+<div class="">
+  <footer class="page-footer">
+  </footer>
+
+  <!-- Colophon-->
+  <div class="page-colophon">
+    <div class="container clearfix">
+      <div class="row">
+        <div class="col-md-6 col-sm-12">(c)2017</div>
+        <div class="col-md-6 col-sm-12">leojim</div>
+      </div>
+    </div>
+  </div>
+</div>

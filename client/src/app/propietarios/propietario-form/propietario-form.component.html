@@ -1,0 +1,72 @@
+<section>
+  <article>
+    <h2>Guardar Datos de Propietario</h2>
+    <form [formGroup]="propietarioForm" (ngSubmit)="onSubmit(propietarioForm)" novalidate autocomplete="off">
+
+      <div class="form-group" [ngClass]="{ 'has-error': formError.fName }">
+        <label for="fName" class="control-label">Nombres: </label>
+        <input type="text" class="form-control" id="fName" placeholder="Su nombre es" formControlName="fName">
+        <span class="help-block" *ngIf="formError.fName">
+          <small>{{ formError.fName }}</small>
+        </span>
+      </div>
+
+      <div class="form-group" [ngClass]="{ 'has-error': formError.lName }">
+        <label for="lName" class="control-label">Apellidos: </label>
+        <input type="text" class="form-control" id="lName" placeholder="Su apellido es" formControlName="lName">
+        <span class="help-block" *ngIf="formError.lName">
+          <small>{{ formError.lName }}</small>
+        </span>
+      </div>
+
+      <div class="form-group" [ngClass]="{ 'has-error': formError.email }">
+        <label for="email" class="control-label">Email: </label>
+        <input type="email" class="form-control" id="email" placeholder="Su email es" formControlName="email">
+        <span class="help-block" *ngIf="formError.email">
+          <small>{{ formError.email }}</small>
+        </span>
+      </div>
+
+      <div class="form-group" [ngClass]="{ 'has-error': formError.gender }">
+        <label for="gender" class="control-label">Género</label>
+        <div class="radio">
+          <label>
+          <input type="radio" name="gender" value="M" formControlName="gender"> Masculino
+          </label>
+        </div>
+        <div class="radio">
+          <label>
+          <input type="radio" name="gender" value="F" formControlName="gender"> Femenino
+          </label>
+        </div>
+        <div class="radio">
+          <label>
+          <input type="radio" name="gender" value="X" formControlName="gender"> No Especifica
+          </label>
+        </div>
+        <span class="help-block" *ngIf="formError.gender">
+          <small>{{ formError.gender }}</small>
+        </span>
+      </div>
+
+      <div class="form-group" [ngClass]="{ 'has-error': formError.age }">
+        <label for="age" class="control-label">Edad: </label>
+        <input type="number" min="1" max="100" class="form-control" id="age" placeholder="Su edad es" formControlName="age">
+        <span class="help-block" *ngIf="formError.age">
+          <small>{{ formError.age }}</small>
+        </span>
+      </div>
+
+      <div class="row">
+        <div class="col-xs-12 col-sm-6">
+          <button type="submit" [disabled]="propietarioForm.invalid" class="btn btn-primary btn-block">
+            {{ propietario ? 'Modificar' : 'Crear' }}
+          </button>
+        </div>
+        <div class="col-xs-12 col-sm-6">
+          <button type="button" class="btn btn-warning btn-block" (click)="clear()">Cancelar</button>
+        </div>
+      </div>
+    </form>
+  </article>
+</section>

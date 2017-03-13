@@ -115,4 +115,17 @@ export class PropietarioRepository implements BaseRepository<Propietario> {
    getLand(item: Propietario, callback: (error: any, result: any) => void) {
       item.populate('fincas', callback);
    };
+
+   
+   /**
+    * Busca en la base de datos si existe el email que tiene registrado el propietario
+    * 
+    * @param {Propietario} item 
+    * @param {(error: any, result: any) => void} callback 
+    * 
+    * @memberOf PropietarioRepository
+    */
+   findEmail(item: Propietario, callback: (error: any, result: any) => void) {
+      this.model.findOne({email: item.email }, callback);
+   }
 }

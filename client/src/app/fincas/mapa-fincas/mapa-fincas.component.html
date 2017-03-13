@@ -1,0 +1,20 @@
+<article *ngIf="markers" class="wrapper">
+  <div class="row">
+    <h2> {{ title }} </h2>
+  </div>
+
+  <div class="row">
+    <sebm-google-map class="sebm-google-map-container" [latitude]="latitude" [longitude]="longitude" [zoom]="zoom" [disableDefaultUI]="true"
+      [zoomControl]="true" styled-map>
+
+      <sebm-google-map-marker *ngFor="let marker of markers" [latitude]="marker.location[0]" [longitude]="marker.location[1]">
+
+        <sebm-google-map-info-window>
+          <h4> {{ marker.name }}</h4>
+          <p>Área: {{ marker.area }}</p>
+        </sebm-google-map-info-window>
+
+      </sebm-google-map-marker>
+    </sebm-google-map>
+  </div>
+</article>

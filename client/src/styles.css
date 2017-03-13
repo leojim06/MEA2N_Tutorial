@@ -1,1 +1,138 @@
 /* You can add global styles to this file, and also import other style files */
+body{
+   margin: 0;
+   font-size: 14px;
+   font-weight: normal;
+   color: rgba(0,0,0,0.87);
+   background:#EEEEEE;
+}
+
+.page-wrapper{
+    padding-top: 96px;
+    font-size: 14px;
+    color: rgba(0,0,0,0,0.87);
+}
+
+.page-footer {
+    background-color: #3B3B3C;
+    color: #8D8D8D;
+    line-height: 20px;
+    margin-top: 16px;
+    padding: 40px 0;
+}
+
+.page-colophon {
+    background-color: #272727;
+    color: #8D8D8D;
+    line-height: 22px;
+}
+
+.page-colophon .container {
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+
+.footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+}
+
+.slim-loading-bar {
+    position: fixed;
+    margin: 0;
+    padding: 0;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 99999;
+}
+
+/* Styling for the Slim Loading Progress Bar itself */
+.slim-loading-bar-progress {
+    margin: 0;
+    padding: 0;
+    z-index: 99998;
+    background-color: green;
+    color: green;
+    box-shadow: 0 0 10px 0; /* Inherits the font color */
+    height: 2px;
+    opacity: 0;
+
+    /* Add CSS3 styles for transition smoothing */
+    -webkit-transition: all 0.5s ease-in-out;
+    -moz-transition: all 0.5s ease-in-out;
+    -o-transition: all 0.5s ease-in-out;
+    transition: all 0.5s ease-in-out;
+}
+/* Angular2-google-maps style */
+.sebm-google-map-container {
+    height: 300px;
+}
+
+
+.wrapper {
+  padding: 0 80px;
+  margin: 50px auto;
+}
+
+.title {
+   color: #2BBCDE;
+	font-size: 20px;
+	font-weight: 900;
+	line-height: normal;
+	margin: 0;
+}
+
+.name {
+	color: #ed1c40;
+	font-weight: 700
+}
+
+table {
+  text-align: left;
+  line-height: 60px;
+  border-collapse: separate;
+  border-spacing: 0;
+  border: 2px solid #ed1c40;
+  margin: 20px auto;
+  border-radius: .25rem;
+}
+
+thead tr:first-child {
+  background: #ed1c40;
+  color: #fff;
+  border: none;
+}
+
+thead tr:last-child th {
+  border-bottom: 3px solid #ddd;
+}
+
+tbody tr:hover {
+  background-color: rgba(237, 28, 64, .1);
+  cursor: default;
+}
+
+tbody tr:last-child td {
+  border: none;
+}
+
+tbody td {
+  border-bottom: 1px solid #ddd;
+}
+
+td:last-child {
+  text-align: right;
+  padding-right: 10px;
+}
+
+.icon {
+  color: #0a79df;
+  padding-left: 4px;
+  padding-right: 4px;
+}
+
+.icon:hover {
+  color: #dc2a2a;
+}

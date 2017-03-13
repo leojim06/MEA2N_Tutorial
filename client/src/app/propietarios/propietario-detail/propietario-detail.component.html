@@ -1,0 +1,80 @@
+<article *ngIf="propietario">
+  <div class="row col-sm-offset-1">
+    <h2>Detalles de {{propietario.fName}} {{propietario.lName}} </h2>
+  </div>
+
+  <div class="row">
+    <div class="col-sm-offset-1">
+
+      <div class="form-group">
+        <div align="right">
+          <label for="propietarioId" class="control-label col-xs-2">ID: </label>
+        </div>
+        <div class="col-xs-10">
+          <p class="text">{{propietario._id}}</p>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <div align="right">
+          <label for="propietarioGender" class="control-label col-xs-2">Genero: </label>
+        </div>
+        <div class="col-xs-10">
+          <p class="text">{{propietario.gender}}</p>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <div align="right">
+          <label for="propietarioAge" class="control-label col-xs-2">Edad: </label>
+        </div>
+        <div class="col-xs-10">
+          <p class="text">{{propietario.age}}</p>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <div align="right">
+          <label for="propietarioEmail" class="control-label col-xs-2">Email: </label>
+        </div>
+        <div class="col-xs-10">
+          <p class="text">{{propietario.email}}</p>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <div align="right">
+          <label for="propietarioFincas" class="control-label col-xs-2">Fincas: </label>
+        </div>
+        <div class="col-xs-10">
+          <p class="text">{{propietario.fincas.length}}</p>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <div align="right">
+          <label for="propietarioFincas" class="control-label col-xs-2">Creado el: </label>
+        </div>
+        <div class="col-xs-10">
+          <p class="text">{{propietario.createdAt}}</p>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <div align="right">
+          <label for="propietarioFincas" class="control-label col-xs-2">Modificado el: </label>
+        </div>
+        <div class="col-xs-10">
+          <p class="text">{{propietario.updatedAt}}</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="row col-sm-offset-1">
+    <button type="button" class="btn-primary" (click)="goBack()">Atras</button>
+    <button type="button" class="btn-primary" (click)="gotoPropietarios()">Propietarios</button>
+    <button type="button" class="btn-primary" (click)="propietarioEdit(propietario)">Editar</button>
+  </div>
+</article>

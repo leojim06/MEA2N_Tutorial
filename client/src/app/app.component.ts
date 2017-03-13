@@ -7,4 +7,12 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title: string = 'app works!';
+    
+  private options = {
+    position: ["bottom", "right"],
+    timeOut: 4000,
+    lastOnBottom: true,
+    showProgressBar: true,
+    animate: "fromRight"
+  }
 }

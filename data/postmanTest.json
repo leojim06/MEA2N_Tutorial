@@ -1,0 +1,63 @@
+[
+   // propietario 1
+   {
+      "fName": "John",
+      "lName": "Doe",
+      "gender": "M",
+      "age": 33,
+      "email": "sample@he.ll"
+   },
+   // propietario 2
+   {
+      "fName": "Leo",
+      "lName": "Jim",
+      "gender": "M",
+      "age": 29,
+      "email": "leojim06@sample.com"
+   },
+   // finca 1
+   {
+      "name": "Hacienda el Paraiso",
+      "area": 1500,
+      "location": [
+         1.087418,
+         -77.385573
+      ]
+   },
+   // finca 2
+   {
+      "name": "La María",
+      "area": 1500,
+      "location": [
+         1.287418,
+         -77.585573
+      ]
+   },
+   //finca 3
+   {
+      "name": "Las nubes",
+      "area": 1500,
+      "location": [
+         1.387418,
+         -77.785573
+      ]
+   },
+   //finca 4
+   {
+      "name": "Viña del Mar",
+      "area": 1500,
+      "location": [
+         1.187418,
+         -77.585573
+      ]
+   },
+   // finca 5
+   {
+      "name": "Viña de la Pampa",
+      "area": 1500,
+      "location": [
+         1.487418,
+         -77.885573
+      ]
+   }
+]

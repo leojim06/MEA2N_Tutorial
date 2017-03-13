@@ -1,0 +1,77 @@
+<section>
+  <article>
+    <h2>Guardar Datos de Finca</h2>
+
+    <div class="row">
+      <form [formGroup]="fincaForm" (ngSubmit)="onSubmit(fincaForm)" novalidate autocomplete="off">
+
+        <div class="col-xs-12 col-md-6">
+          <div class="form-group" [ngClass]="{ 'has-error': formError.name }">
+            <label for="name" class="control-label">Nombre: </label>
+            <input type="text" class="form-control" name="name" value="" id="name" placeholder="El nombre de la finca es" formControlName="name">
+            <span class="help-block" *ngIf="formError.name">
+              <small>{{ formError.name }}</small>
+            </span>
+          </div>
+
+          <div class="form-group" [ngClass]="{ 'has-error': formError.area }">
+            <label for="area" class="control-label">Area: </label>
+            <input type="number" class="form-control" name="area" value="" id="area" placeholder="El área de la finca es" formControlName="area">
+            <span class="help-block" *ngIf="formError.area">
+              <small>{{ formError.area }}</small>
+            </span>
+          </div>
+
+          <!--<fieldset formGroupName="location">-->
+          <fieldset>
+
+            <div class="form-group" [ngClass]="{ 'has-error': formError.latitude }">
+              <label for="latitude" class="control-label">Latitud: </label>
+              <input type="number" class="form-control" name="latitude" value="" id="latitude" placeholder="Latitud de la ubicación" formControlName="latitude">
+              <span class="help-block" *ngIf="formError.latitude">
+                <small>{{ formError.latitude }}</small>
+              </span>
+            </div>
+
+            <div class="form-group" [ngClass]="{ 'has-error': formError.longitude }">
+              <label for="longitude" class="control-label">Longitud: </label>
+              <input type="number" class="form-control" name="longitude" value="" id="longitude" placeholder="Longitud de la ubicación"
+                formControlName="longitude">
+              <span class="help-block" *ngIf="formError.longitude">
+                <small>{{ formError.longitude }}</small>
+              </span>
+            </div>
+
+          </fieldset>
+        </div>
+
+        <div class="col-xs-12 col-md-6">
+          <sebm-google-map class="sebm-google-map-container" [latitude]="latitude" [longitude]="longitude" [zoom]="zoom" [disableDefaultUI]="true"
+            [zoomControl]="true" (mapClick)="mapClicked($event)">
+
+
+            <sebm-google-map-marker *ngFor="let marker of markers" [latitude]="marker.latitude" [longitude]="marker.longitude" [markerDraggable]="marker.draggable"
+              [label]="marker.label" (dragEnd)="markerDragEnd(marker, $event)">
+              <sebm-google-map-info-window>
+                <h4>{{ marker.label }}</h4>
+              </sebm-google-map-info-window>
+            </sebm-google-map-marker>
+
+          </sebm-google-map>
+        </div>
+
+        <!--<div class="row">-->
+        <div class="col-xs-12 col-lg-6">
+          <button type="submit" [disabled]="fincaForm.invalid" class="btn btn-primary btn-block">
+            {{ finca ? 'Modificar' : 'Crear' }}
+          </button>
+        </div>
+        <div class="col-xs-12 col-lg-6">
+          <button type="button" class="btn btn-warning btn-block" (click)="clear()">Cancelar</button>
+        </div>
+        <!--</div>-->
+      </form>
+    </div>
+
+  </article>
+</section>

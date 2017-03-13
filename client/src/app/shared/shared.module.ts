@@ -1,11 +1,27 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ConfigService } from './services/config.service';
+import { FormsModule } from '@angular/forms';
+
+import { ConfigService, ApiService, JwtService, } from './services';
+import { TrimValueAccessorDirective } from './directives';
+
 
 @NgModule({
-  imports: [CommonModule],
-  providers: [ConfigService],
-  declarations: [],
-  exports: [CommonModule]
+  imports: [
+    CommonModule,
+    FormsModule
+  ],
+  providers: [
+    ConfigService,
+    ApiService,
+    JwtService
+  ],
+  declarations: [
+    TrimValueAccessorDirective
+  ],
+  exports: [
+    CommonModule,
+    TrimValueAccessorDirective
+  ]
 })
 export class SharedModule { }

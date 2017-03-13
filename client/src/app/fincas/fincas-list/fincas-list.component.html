@@ -1,0 +1,46 @@
+<section class="wrapper">
+
+  <div class="row">
+    <h3 class="col-sm-9 title">Fincas</h3>
+    <div class="pull-right">
+      <a class="col-sm-3" (click)="changeView()">
+        <i class="icon fa fa-globe fa-2x"></i>
+      </a>
+    </div>
+  </div>
+
+  <article *ngIf="fincas">
+    <div class="row" *ngIf="!location">
+      <table class="table">
+        <thead>
+          <tr>
+            <td>Nombre</td>
+            <td class="text-center">Area</td>
+            <td class="text-center">Ubicación</td>
+            <td></td>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let finca of fincas">
+            <td class="name">{{ finca.name }} </td>
+            <td class="text-center">{{ finca.area }}</td>
+            <td class="text-center">{{ finca.location }}</td>
+            <td>
+              <a><i class="icon fa fa-trash" (click)="fincaDestroy(finca)"></i></a>
+              <a><i class="icon fa fa-pencil" (click)="fincaEdit(finca)"></i></a>
+              <a><i class="icon fa fa-globe" (click)="fincaDetail(finca)"></i></a>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="row" *ngIf="location">
+      <app-mapa-fincas [lista]="fincas"></app-mapa-fincas>
+    </div>
+
+    <div class="row" *ngIf="!fincas">
+      <h2>No hay fincas</h2>
+    </div>
+  </article>
+</section>

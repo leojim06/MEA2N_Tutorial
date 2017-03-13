@@ -3,16 +3,14 @@ import { CommonModule } from '@angular/common';
 
 import { LukeSkywalkerComponent } from './luke-skywalker/luke-skywalker.component';
 import { DarthVaderComponent } from './darth-vader/darth-vader.component';
-// import { ConfesionComponent } from './confesion.component';
+import { ConfesionRoutingModule } from './confesion-routing.module';
 
 @NgModule({
-  imports: [CommonModule],
+  imports: [CommonModule, ConfesionRoutingModule],
   declarations: [
     LukeSkywalkerComponent,
     DarthVaderComponent,
-    // ConfesionComponent
   ],
-  // exports: [ConfesionComponent]
   exports: [DarthVaderComponent]
 })
 export class ConfesionModule { }

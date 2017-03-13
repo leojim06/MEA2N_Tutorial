@@ -1,0 +1,38 @@
+<section class="wrapper">
+  <div class="row">
+    <h3 class="col-sm-9 title">Propietarios</h3>
+    <div class="pull-right">
+      <a routerLink="/propietarios/new" class="col-sm-3" routerLinkActive="active">
+        <i class="icon fa fa-plus-square fa-2x"></i>
+      </a>
+    </div>
+  </div>
+  <div class="row" *ngIf="propietarios">
+    <table class="table">
+      <thead>
+        <tr>
+          <td>Nombre</td>
+          <td class="text-center">Propiedades</td>
+          <td></td>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let propietario of propietarios">
+          <td class="name">{{ propietario.fName }} {{ propietario.lName }} </td>
+          <td class="text-center">{{ propietario.fincas.length }}</td>
+          <td>
+            <a><i class="icon fa fa-trash" (click)="propietarioDestroy(propietario)" ></i></a>
+            <a><i class="icon fa fa-pencil" (click)="propietarioEdit(propietario)" ></i></a>
+            <!--<a><i class="icon fa fa-pencil"></i></a>-->
+            <a><i class="icon fa fa-info" (click)="propietarioDetail(propietario)"></i></a>
+            <a><i class="icon fa fa-plus" (click)="propietarioNewFinca(propietario)" ></i></a>
+            <a><i class="icon fa fa-globe" (click)="propietarioFincaDetail(propietario)" ></i></a>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="row" *ngIf="!propietarios">
+    <h2>No hay propietarios</h2>
+  </div>
+</section>

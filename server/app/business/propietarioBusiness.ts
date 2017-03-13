@@ -24,7 +24,8 @@ export class PropietarioBusiness implements BaseBusiness<Propietario> {
    }
 
    /**
-    * Crea un propietario en la capa de business
+    * Crea un propietario en la capa de business asegurandose de que el 
+    * email no esté repetido
     * 
     * @param {Propietario} item
     * @param {(error: any, result: any) => void} callback
@@ -32,7 +33,13 @@ export class PropietarioBusiness implements BaseBusiness<Propietario> {
     * @memberOf PropietarioBusiness
     */
    create(item: Propietario, callback: (error: any, result: any) => void) {
-      this.propietarioRepository.create(item, callback);
+      this.propietarioRepository.findEmail(item, (err: any, res: Propietario) => {
+         if (res !== null) {
+            return callback('El email ya existe', res);
+         }
+         this.propietarioRepository.create(item, callback);
+      });
+
    }
    /**
     * Obtiene todos los propietarios en la capa de business
@@ -144,13 +151,13 @@ export class PropietarioBusiness implements BaseBusiness<Propietario> {
             return callback(err, propietario);
          }
          let fincaRepository = new FincaRepository();
-         fincaRepository.create(finca, (err: any, finca: Finca) => {
-            if (err || !finca) {
+         fincaRepository.create(finca, (err: any, newFinca: Finca) => {
+            if (err || !newFinca) {
                return callback(err, finca);
             }
-            this.propietarioRepository.insertLand(propietario, finca, (err: any, res: any) => {
+            this.propietarioRepository.insertLand(propietario, newFinca, (err: any, res: any) => {
                if (err || !res) {
-                  fincaRepository.delete(finca, callback);
+                  fincaRepository.delete(newFinca, callback);
                }
                return callback(err, res);
             });
